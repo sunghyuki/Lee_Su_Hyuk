@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ObjectDetection">
 
+        <activity android:name=".DetectorActivity2"/>
         <activity android:name=".DetectorActivity"/>
         <activity
             android:name=".StartActivity"

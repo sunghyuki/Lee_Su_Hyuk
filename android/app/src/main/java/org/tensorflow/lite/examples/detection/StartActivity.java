@@ -88,8 +88,14 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void gotoDetectorActivity(String voice) {
-        Intent intent = new Intent(this, DetectorActivity.class);
-        intent.putExtra("voice", voice);
-        startActivity(intent);
+        if(voice.equals("83번 버스")){
+            Intent intent = new Intent(this, DetectorActivity2.class);
+            intent.putExtra("voice", voice);
+            startActivity(intent);}
+        else {
+            Intent intent = new Intent(this, DetectorActivity.class);
+            intent.putExtra("voice", voice);
+            startActivity(intent);
+        }
     }
 }

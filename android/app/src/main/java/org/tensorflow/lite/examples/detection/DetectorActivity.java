@@ -48,8 +48,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static android.speech.tts.TextToSpeech.ERROR;
 
@@ -60,14 +58,16 @@ import static android.speech.tts.TextToSpeech.ERROR;
  */
 
 public class DetectorActivity extends CameraActivity implements OnImageAvailableListener {
+
   private static final Logger LOGGER = new Logger();
 
   // Configuration values for the prepackaged SSD model.
   private static final int TF_OD_API_INPUT_SIZE = 300;
   private static final boolean TF_OD_API_IS_QUANTIZED = false;
-  private static final String TF_OD_API_MODEL_FILE = "extra_final_model_50000.tflite";
+  private static final String TF_OD_API_MODEL_FILE = "only83_final_model_200000.tflite";
   private static final String TF_OD_API_LABELS_FILE = "labels2.txt";
   private static final DetectorMode MODE = DetectorMode.TF_OD_API;
+
   // Minimum detection confidence to track a detection.
   private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
   private static final boolean MAINTAIN_ASPECT = false;
@@ -97,26 +97,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
   public static Toast mToast;
   String requestName;
-  boolean State_speak = true;
-  boolean State_timer = true;
   private Button button;
   private TextToSpeech tts;
-  int sum = 0;
-  Timer timer1 = new Timer();
-  Timer timer2 = new Timer();
-
-  TimerTask task1 = new TimerTask() {
-    @Override
-    public void run() {
-      State_speak=true;
-    }
-  };
 
   @Override
   public void onPreviewSizeChosen(final Size size, final int rotation) {
-
-
-
     button = (Button) findViewById(R.id.backButton);
     button.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -131,13 +116,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
       @Override
       public void onInit(int status) {
-
         if (status != ERROR) {
           tts.setLanguage(Locale.KOREA);
         }
       }
     });
-
 
     final float textSizePx =
             TypedValue.applyDimension(
@@ -157,14 +140,12 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                       TF_OD_API_LABELS_FILE,
                       TF_OD_API_INPUT_SIZE,
                       TF_OD_API_IS_QUANTIZED);
+
       cropSize = TF_OD_API_INPUT_SIZE;
     } catch (final IOException e) {
       e.printStackTrace();
       LOGGER.e(e, "Exception initializing Detector!");
-      Toast toast =
-              Toast.makeText(
-                      getApplicationContext(), "Detector could not be initialized", Toast.LENGTH_SHORT);
-      toast.show();
+      Toast.makeText(getApplicationContext(), "Detector could not be initialized", Toast.LENGTH_SHORT).show();
       finish();
     }
 
@@ -222,6 +203,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     final Canvas canvas = new Canvas(croppedBitmap);
     canvas.drawBitmap(rgbFrameBitmap, frameToCropTransform, null);
+
     // For examining the actual TF input.
     if (SAVE_PREVIEW_BITMAP) {
       ImageUtils.saveBitmap(croppedBitmap);
@@ -260,10 +242,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                     String res = (String) result.getTitle().toString().trim();
 
-
-
-
-
+                    if(res.equals("83bus"))
+                      continue;
 
                     if(requestName.equals(new String("대기 위치"))){
                       if(res.equals(new String("stoppoint"))){
@@ -288,9 +268,6 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                     } else {
                       ShortMessage(res);
                     }
-
-
-
 
                     cropToFrameTransform.mapRect(location);
 
@@ -383,7 +360,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     if(midx<x){
       ShortMessage("왼쪽에 있음");
-    } else if(midx>x){
+    } else if(midx>2*x){
       ShortMessage("오른쪽에 있음");
     } else{
       ShortMessage("앞에 있음");
@@ -408,7 +385,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     if(midx<x){
       ShortMessage("왼쪽에 있음");
-    } else if(midx>x){
+    } else if(midx>2*x){
       ShortMessage("오른쪽에 있음");
     } else{
       ShortMessage("앞에 있음");
@@ -416,27 +393,17 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
   }
 
-
-
   public void ShortMessage(final String message) {
 
+    if(!tts.isSpeaking()) {
+      tts.speak(message, TextToSpeech.QUEUE_FLUSH, null);
 
-    tts.speak(message, TextToSpeech.QUEUE_FLUSH, null);
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      //Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+      if (mToast != null) mToast.cancel();
+      mToast = Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT);
+      mToast.show();
     }
-    //Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    if (mToast != null) mToast.cancel();
-    mToast = Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT);
-    mToast.show();
+
   }
-
-
-
-
-
 
 }
