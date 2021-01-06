@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "212055863671",
+    "project_id": "pushtest-87801",
+    "storage_bucket": "pushtest-87801.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212055863671:android:5329096f64a8a3068fb172",
+        "android_client_info": {
+          "package_name": "com.example.mynotificationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212055863671-ueaul06j15le9ocqklj9t3f1085hbrje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDlY9Yc0Yptk17bQvhTCFXT38aypwwPXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212055863671-ueaul06j15le9ocqklj9t3f1085hbrje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212055863671:android:b0584ade67aa3e648fb172",
+        "android_client_info": {
+          "package_name": "com.example.mynotificationapp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212055863671-ueaul06j15le9ocqklj9t3f1085hbrje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDlY9Yc0Yptk17bQvhTCFXT38aypwwPXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212055863671-ueaul06j15le9ocqklj9t3f1085hbrje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212055863671:android:a307bcaa8659b4078fb172",
+        "android_client_info": {
+          "package_name": "com.example.mynotificationdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212055863671-ueaul06j15le9ocqklj9t3f1085hbrje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDlY9Yc0Yptk17bQvhTCFXT38aypwwPXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212055863671-ueaul06j15le9ocqklj9t3f1085hbrje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
